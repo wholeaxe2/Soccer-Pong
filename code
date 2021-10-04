@@ -1,0 +1,95 @@
+//Global Variables
+int leftPaddleX, leftPaddleY, leftPaddleW, leftPaddleH, leftPaddleSpeed;
+float rightPaddleX, rightPaddleY, rightPaddleWidth, rightPaddleHeight ;
+int x, y, w, h, speedX, speedY;
+int speed;
+int leftPaddleMove;
+int rightPaddleMove;
+
+void setup() {
+  size (700, 500);
+  rectMode(CENTER);
+  leftPaddleX = 40;
+  leftPaddleH = 200;
+  leftPaddleY = height/2;
+  leftPaddleW = 20;
+  leftPaddleSpeed = 5;
+  //
+  rightPaddleX = width * 39/40 ;
+  rightPaddleHeight = height * 1/2;
+  rightPaddleY =(height*1/2) - rightPaddleHeight*1/2 ;
+  rightPaddleWidth = width * 39/40 ;
+  rightPaddleMove = width * 0;
+  //
+  x = width/2;
+  y = height/2;
+  w = 20;
+  h = 20;
+  speedX = 2;
+  speedY = 3;
+  //
+  println(leftPaddleY);
+  println(rightPaddleY);
+}
+
+void draw() {
+  background(#339900);
+
+  drawCircle();
+  moveCircle();
+  bounceOff();
+
+  drawPaddle();
+}
+
+void drawPaddle() {
+  fill(255,255,255);
+  rect(leftPaddleX, leftPaddleY, leftPaddleW, leftPaddleH);
+}
+
+void drawCircle() {
+  fill(253, 254, 254);
+  ellipse(x, y, w, h);
+}
+
+void moveCircle() {
+  x = x + speedX;
+  y = y + speedY;
+}
+
+void bounceOff() {
+
+  if ( x > width - w/2) {
+    speedX = -speedX;
+  } else if (x < 0 + w/2) {
+    speedX = -speedX;
+  }
+
+  if (y > height - h/2) {
+    speedY = -speedY;
+  } else if (y < 0 + h/2) {
+    speedY = -speedY;
+  }
+}
+
+
+void keyPressed() {
+
+  // Right Paddle Movement, using W-S Keys
+
+  if (key == 'w' || key == 'W') {
+    rightPaddleY = rightPaddleY - 1;
+  }
+  if (key == 's' || key == 'S') rightPaddleY = rightPaddleY + 1;
+
+  // Rightt Paddle Movement, using ARROW Keys
+  if (key == CODED) {
+    if (keyCode == UP) {
+      leftPaddleY = leftPaddleY - 1;
+    }
+    if (keyCode == DOWN) leftPaddleY = leftPaddleY + 1;
+  }
+}
+
+void keyReleased() {
+}
